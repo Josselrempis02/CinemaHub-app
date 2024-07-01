@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Movie1">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="1457dp"
+        android:layout_height="1448dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/movie1"
+        tools:ignore="MissingConstraints" />
+
+
+        <RelativeLayout
+            android:id="@+id/relative1"
+        android:layout_width="344dp"
+        android:layout_height="569dp"
+        android:background="@drawable/border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+            <Button
+                android:id="@+id/buy"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="81dp"
+                android:layout_marginTop="486dp"
+                android:layout_marginEnd="75dp"
+                android:layout_marginBottom="33dp"
+                android:background="@drawable/button"
+                android:fontFamily="@font/poppins"
+                android:text="Buy Ticket"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+
+                app:layout_constraintVertical_bias="0.813" />
+
+
+            <TextView
+                android:id="@+id/genre"
+                android:layout_width="50dp"
+                android:layout_height="15dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="57dp"
+                android:layout_marginTop="438dp"
+                android:layout_marginEnd="237dp"
+                android:layout_marginBottom="116dp"
+                android:background="@drawable/genre_border"
+                android:fontFamily="@font/poppins"
+                android:text=" Animation"
+                android:textAlignment="center"
+                android:textColor="@color/grey"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/genre1"
+                android:layout_width="40dp"
+                android:layout_height="14dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="130dp"
+                android:layout_marginTop="438dp"
+                android:layout_marginEnd="174dp"
+                android:layout_marginBottom="117dp"
+                android:background="@drawable/genre_border"
+                android:fontFamily="@font/poppins"
+                android:text="Family"
+                android:textAlignment="center"
+                android:textColor="@color/grey"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/genre2"
+                android:layout_width="50dp"
+                android:layout_height="14dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="191dp"
+                android:layout_marginTop="439dp"
+                android:layout_marginEnd="103dp"
+                android:layout_marginBottom="116dp"
+                android:background="@drawable/genre_border"
+                android:fontFamily="@font/poppins"
+                android:text="Adventure"
+                android:textAlignment="center"
+                android:textColor="@color/grey"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/genre3"
+                android:layout_width="43dp"
+                android:layout_height="15dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="256dp"
+                android:layout_marginTop="439dp"
+                android:layout_marginEnd="46dp"
+                android:layout_marginBottom="115dp"
+                android:background="@drawable/genre_border"
+                android:fontFamily="@font/poppins"
+                android:text="Drama"
+                android:textAlignment="center"
+                android:textColor="@color/grey"
+                android:textSize="10sp" />
+
+            <ImageView
+                android:id="@+id/movie1"
+                android:layout_width="233dp"
+                android:layout_height="380dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="57dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="53dp"
+                android:layout_marginBottom="173dp"
+                app:srcCompat="@drawable/cinema1" />
+
+            <TextView
+                android:id="@+id/title1"
+                android:layout_width="132dp"
+                android:layout_height="40dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="109dp"
+                android:layout_marginTop="398dp"
+                android:layout_marginEnd="103dp"
+                android:layout_marginBottom="131dp"
+                android:fontFamily="@font/poppins"
+                android:text="Inside Out 2"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+
+        </RelativeLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
