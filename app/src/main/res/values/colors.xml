@@ -3,6 +3,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#979497</color>
+    <color name="seat_selected_color">#808080</color> <!-- Grey color for selected seats -->
+    <color name="seat_default_color">#00FF00</color> <!-- Green color for default seats -->
+    !-- Example: Yellow for selected seats -->
 </resources>
 
 
