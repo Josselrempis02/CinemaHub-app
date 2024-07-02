@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -29,9 +28,21 @@ public class Login extends AppCompatActivity {
     private TextView signup;
 
     @Override
+    public void onStart() {
+        super.onStart();
+        mAuth = FirebaseAuth.getInstance(); // Ensure FirebaseAuth is initialized here
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            Log.d(TAG, "User already signed in, navigating to menu_navbar.");
+            Intent intent = new Intent(getApplicationContext(), menu_navbar.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login2);
 
         // Initialize Firebase
@@ -59,6 +70,8 @@ public class Login extends AppCompatActivity {
                     return;
                 }
 
+                Log.d(TAG, "Attempting to sign in with email: " + emailText);
+
                 mAuth.signInWithEmailAndPassword(emailText, passwordText)
                         .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
                             @Override
@@ -66,12 +79,14 @@ public class Login extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d(TAG, "signInWithEmail:success");
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    updateUI(user);
+                                    Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(getApplicationContext(), menu_navbar.class);
+                                    startActivity(intent);
+                                    finish();
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                    Toast.makeText(Login.this, "Authentication failed.",
+                                    Toast.makeText(Login.this, "Authentication failed: " + task.getException().getMessage(),
                                             Toast.LENGTH_SHORT).show();
                                     updateUI(null);
                                 }
@@ -87,6 +102,7 @@ public class Login extends AppCompatActivity {
                 // Navigate to RegisterActivity
                 Intent intent = new Intent(Login.this, Register.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
