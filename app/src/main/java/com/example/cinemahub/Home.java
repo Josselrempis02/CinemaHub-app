@@ -30,7 +30,7 @@ public class Home extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         List<Movie> movies = Arrays.asList(
-                new Movie("Movie 1", "https://image.tmdb.org/t/p/original/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg"),
+                new Movie("End Game", "https://image.tmdb.org/t/p/original/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg"),
                 new Movie("Movie 2", "https://image.tmdb.org/t/p/original/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg"),
                 new Movie("Movie 1", "https://image.tmdb.org/t/p/original/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg"),
                 new Movie("Movie 2", "https://image.tmdb.org/t/p/original/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg"),

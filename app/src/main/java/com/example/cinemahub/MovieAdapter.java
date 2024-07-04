@@ -1,3 +1,4 @@
+// MovieAdapter.java
 package com.example.cinemahub;
 
 import android.content.Context;
@@ -38,10 +39,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         holder.title.setText(movie.getTitle());
         Picasso.get().load(movie.getImageUrl()).into(holder.image);
 
-        holder.image.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((menu_navbar)context).loadFragment(new BookingFragment());
+                BookingFragment bookingFragment = BookingFragment.newInstance(movie.getTitle());
+                ((menu_navbar) context).loadFragment(bookingFragment);
             }
         });
     }

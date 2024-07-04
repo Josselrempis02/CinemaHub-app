@@ -1,3 +1,4 @@
+// BookingFragment.java
 package com.example.cinemahub;
 
 import android.app.AlertDialog;
@@ -39,10 +40,21 @@ public class BookingFragment extends Fragment {
     private EditText dateEditText;
     private EditText timeEditText;
     private TextView priceTextView;
+    private TextView movieTitleTextView;
     private Button bookButton;
 
     private List<Seat> seats;
     private DatabaseReference bookingDB;
+
+    private static final String ARG_MOVIE_TITLE = "movie_title";
+
+    public static BookingFragment newInstance(String movieTitle) {
+        BookingFragment fragment = new BookingFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_MOVIE_TITLE, movieTitle);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     public BookingFragment() {
         // Required empty public constructor
@@ -58,7 +70,13 @@ public class BookingFragment extends Fragment {
         dateEditText = view.findViewById(R.id.date_edit_text);
         timeEditText = view.findViewById(R.id.time_edit_text);
         priceTextView = view.findViewById(R.id.price_text_view);
+        movieTitleTextView = view.findViewById(R.id.movie_title_text_view);
         bookButton = view.findViewById(R.id.book_button);
+
+        if (getArguments() != null) {
+            String movieTitle = getArguments().getString(ARG_MOVIE_TITLE);
+            movieTitleTextView.setText(movieTitle);
+        }
 
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), NUM_COLUMNS));
         seats = generateSeats();
@@ -168,7 +186,9 @@ public class BookingFragment extends Fragment {
         }
 
         int totalPrice = bookedSeats.size() * 250; // Example price per seat
-        Booking booking = new Booking(cinema, date, time, bookedSeats, totalPrice);
+        String movieTitle = getArguments().getString(ARG_MOVIE_TITLE); // Get the movie title from arguments
+
+        Booking booking = new Booking(cinema, date, time, bookedSeats, totalPrice, movieTitle); // Include movie title
         bookingDB.push().setValue(booking);
 
         // Show success message
