@@ -11,6 +11,11 @@
             android:title="Profile"
             />
 
+        <item android:id="@+id/BookedTickets"
+            android:icon="@drawable/baseline_collections_bookmark_24"
+            android:title="BookedTickets"
+            />
+
 
         <item android:id="@+id/logout"
             android:icon="@drawable/baseline_arrow_forward_24"
