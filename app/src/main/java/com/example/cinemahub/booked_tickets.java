@@ -27,34 +27,23 @@ public class booked_tickets extends Fragment {
     private List<Booking> bookedTicketsList;
     private DatabaseReference bookingDB;
 
-    public booked_tickets() {
-        // Required empty public constructor
-    }
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        bookedTicketsList = new ArrayList<>();
+        adapter = new BookedTicketsAdapter(bookedTicketsList);
     }
 
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_booked_tickets, container, false);
 
         recyclerView = view.findViewById(R.id.recycler_view_booked_tickets);
-        if (recyclerView == null) {
-            Log.e("FirebaseData", "RecyclerView is null");
-            return view;
-        }
-
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        bookedTicketsList = new ArrayList<>();
-        adapter = new BookedTicketsAdapter(bookedTicketsList);
         recyclerView.setAdapter(adapter);
 
         bookingDB = FirebaseDatabase.getInstance().getReference("BookingDB");
-
         bookingDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

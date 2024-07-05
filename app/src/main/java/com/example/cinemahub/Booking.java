@@ -9,18 +9,20 @@ public class Booking {
     private List<Integer> bookedSeats;
     private int totalPrice;
     private String movieTitle;
+    private String userEmail; // Add user email
 
     public Booking() {
         // Default constructor required for calls to DataSnapshot.getValue(Booking.class)
     }
 
-    public Booking(String cinema, String date, String time, List<Integer> bookedSeats, int totalPrice, String movieTitle) {
+    public Booking(String cinema, String date, String time, List<Integer> bookedSeats, int totalPrice, String movieTitle, String userEmail) {
         this.cinema = cinema;
         this.date = date;
         this.time = time;
         this.bookedSeats = bookedSeats;
         this.totalPrice = totalPrice;
         this.movieTitle = movieTitle;
+        this.userEmail = userEmail; // Initialize user email
     }
 
     // Getters and setters for all fields
@@ -42,6 +44,9 @@ public class Booking {
     public String getMovieTitle() { return movieTitle; }
     public void setMovieTitle(String movieTitle) { this.movieTitle = movieTitle; }
 
+    public String getUserEmail() { return userEmail; } // Getter for user email
+    public void setUserEmail(String userEmail) { this.userEmail = userEmail; } // Setter for user email
+
     @Override
     public String toString() {
         return "Booking{" +
@@ -51,6 +56,7 @@ public class Booking {
                 ", bookedSeats=" + bookedSeats +
                 ", totalPrice=" + totalPrice +
                 ", movieTitle='" + movieTitle + '\'' +
+                ", userEmail='" + userEmail + '\'' +
                 '}';
     }
 }

@@ -46,11 +46,13 @@ public class BookingFragment extends Fragment {
     private DatabaseReference bookingDB;
 
     private static final String ARG_MOVIE_TITLE = "movie_title";
+    private static final String ARG_USER_EMAIL = "user_email"; // Add user email argument
 
-    public static BookingFragment newInstance(String movieTitle) {
+    public static BookingFragment newInstance(String movieTitle, String userEmail) {
         BookingFragment fragment = new BookingFragment();
         Bundle args = new Bundle();
         args.putString(ARG_MOVIE_TITLE, movieTitle);
+        args.putString(ARG_USER_EMAIL, userEmail); // Add user email to arguments
         fragment.setArguments(args);
         return fragment;
     }
@@ -186,8 +188,9 @@ public class BookingFragment extends Fragment {
 
         int totalPrice = bookedSeats.size() * 250; // Example price per seat
         String movieTitle = getArguments().getString(ARG_MOVIE_TITLE); // Get the movie title from arguments
+        String userEmail = getArguments().getString(ARG_USER_EMAIL); // Get the user email from arguments
 
-        Booking booking = new Booking(cinema, date, time, bookedSeats, totalPrice, movieTitle); // Include movie title
+        Booking booking = new Booking(cinema, date, time, bookedSeats, totalPrice, movieTitle, userEmail); // Include user email
         bookingDB.push().setValue(booking);
 
         // Show success message
@@ -202,7 +205,7 @@ public class BookingFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         // Navigate to the booked_tickets fragment
                         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                        ft.replace(R.id.fragment_container, new booked_tickets());
+                        ft.replace(R.id.fragment_container, new Home());
                         ft.addToBackStack(null);
                         ft.commit();
                     }

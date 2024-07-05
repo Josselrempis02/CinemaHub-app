@@ -1,4 +1,3 @@
-// MovieAdapter.java
 package com.example.cinemahub;
 
 import android.content.Context;
@@ -19,10 +18,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     private List<Movie> movies;
     private Context context;
+    private String userEmail;
 
     public MovieAdapter(Context context, List<Movie> movies) {
         this.context = context;
         this.movies = movies;
+        this.userEmail = userEmail; // Add user email parameter
     }
 
     @NonNull
@@ -42,7 +43,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BookingFragment bookingFragment = BookingFragment.newInstance(movie.getTitle());
+                BookingFragment bookingFragment = BookingFragment.newInstance(movie.getTitle(), userEmail); // Pass user email
                 ((menu_navbar) context).loadFragment(bookingFragment);
             }
         });
