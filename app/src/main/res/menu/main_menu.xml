@@ -11,7 +11,7 @@
             android:title="Profile"
             />
 
-        <item android:id="@+id/BookedTickets"
+        <item android:id="@+id/booked_tickets"
             android:icon="@drawable/baseline_collections_bookmark_24"
             android:title="BookedTickets"
             />

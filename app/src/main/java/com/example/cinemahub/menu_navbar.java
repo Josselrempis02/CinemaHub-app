@@ -71,6 +71,9 @@ public class menu_navbar extends AppCompatActivity {
                     Intent intent = new Intent(menu_navbar.this, Login.class);
                     startActivity(intent);
                     finish(); // Close the current activity
+                } else if (id == R.id.booked_tickets) {
+                    Toast.makeText(menu_navbar.this, "Booked Tickets Selected", Toast.LENGTH_SHORT).show();
+                    selectedFragment = new booked_tickets();
                 }
 
                 if (selectedFragment != null) {

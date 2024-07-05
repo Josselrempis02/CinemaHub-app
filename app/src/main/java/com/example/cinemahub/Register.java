@@ -90,7 +90,7 @@ public class Register extends AppCompatActivity {
                                     Log.d(TAG, "createUserWithEmail:success");
                                     FirebaseUser user = mAuth.getCurrentUser();
 
-                                    // Create a new user with a first and last name
+                                    // Create a new user with an email
                                     Map<String, Object> userMap = new HashMap<>();
                                     userMap.put("email", emailText);
 
