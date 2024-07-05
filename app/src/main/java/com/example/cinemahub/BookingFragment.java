@@ -1,4 +1,3 @@
-// BookingFragment.java
 package com.example.cinemahub;
 
 import android.app.AlertDialog;
@@ -201,9 +200,9 @@ public class BookingFragment extends Fragment {
                 .setMessage("Your seats have been booked successfully.")
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        // Navigate back to the HomeFragment
+                        // Navigate to the booked_tickets fragment
                         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                        ft.replace(R.id.fragment_container, new Home()); // Use your actual container ID
+                        ft.replace(R.id.fragment_container, new booked_tickets());
                         ft.addToBackStack(null);
                         ft.commit();
                     }

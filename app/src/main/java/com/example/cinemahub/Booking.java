@@ -1,4 +1,3 @@
-// Booking.java
 package com.example.cinemahub;
 
 import java.util.List;
@@ -9,7 +8,7 @@ public class Booking {
     private String time;
     private List<Integer> bookedSeats;
     private int totalPrice;
-    private String movieTitle; // New field for movie title
+    private String movieTitle;
 
     public Booking() {
         // Default constructor required for calls to DataSnapshot.getValue(Booking.class)
@@ -21,10 +20,10 @@ public class Booking {
         this.time = time;
         this.bookedSeats = bookedSeats;
         this.totalPrice = totalPrice;
-        this.movieTitle = movieTitle; // Initialize the new field
+        this.movieTitle = movieTitle;
     }
 
-    // Getters and setters for all fields, including the new movieTitle field
+    // Getters and setters for all fields
     public String getCinema() { return cinema; }
     public void setCinema(String cinema) { this.cinema = cinema; }
 
@@ -42,4 +41,16 @@ public class Booking {
 
     public String getMovieTitle() { return movieTitle; }
     public void setMovieTitle(String movieTitle) { this.movieTitle = movieTitle; }
+
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "cinema='" + cinema + '\'' +
+                ", date='" + date + '\'' +
+                ", time='" + time + '\'' +
+                ", bookedSeats=" + bookedSeats +
+                ", totalPrice=" + totalPrice +
+                ", movieTitle='" + movieTitle + '\'' +
+                '}';
+    }
 }

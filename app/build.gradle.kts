@@ -39,6 +39,7 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(platform("com.google.firebase:firebase-bom:33.1.1"))
     implementation ("com.google.firebase:firebase-firestore:24.0.1")
+    implementation ("com.google.firebase:firebase-core:21.1.0")
 
     implementation(libs.annotation)
     implementation(libs.lifecycle.livedata.ktx)
