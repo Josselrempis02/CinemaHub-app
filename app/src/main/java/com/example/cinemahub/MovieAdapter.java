@@ -20,10 +20,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     private Context context;
     private String userEmail;
 
-    public MovieAdapter(Context context, List<Movie> movies) {
+    public MovieAdapter(Context context, List<Movie> movies, String userEmail) { // Add userEmail to the constructor
         this.context = context;
         this.movies = movies;
-        this.userEmail = userEmail; // Add user email parameter
+        this.userEmail = userEmail;
     }
 
     @NonNull
@@ -38,6 +38,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
         Movie movie = movies.get(position);
         holder.title.setText(movie.getTitle());
+        List<String> genres = movie.getGenres();
+        holder.genre1.setText(genres.size() > 0 ? genres.get(0) : "");
+        holder.genre2.setText(genres.size() > 1 ? genres.get(1) : "");
+        holder.genre3.setText(genres.size() > 2 ? genres.get(2) : "");
+        holder.price.setText(movie.getPrice());
+        holder.description.setText(movie.getDescription());
         Picasso.get().load(movie.getImageUrl()).into(holder.image);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -56,11 +62,21 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     static class MovieViewHolder extends RecyclerView.ViewHolder {
         TextView title;
+        TextView genre1;
+        TextView genre2;
+        TextView genre3;
+        TextView price;
+        TextView description;
         ImageView image;
 
         MovieViewHolder(View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.movie_title);
+            genre1 = itemView.findViewById(R.id.movie_genre1);
+            genre2 = itemView.findViewById(R.id.movie_genre2);
+            genre3 = itemView.findViewById(R.id.movie_genre3);
+            price = itemView.findViewById(R.id.movie_price);
+            description = itemView.findViewById(R.id.movie_description);
             image = itemView.findViewById(R.id.movie_image);
         }
     }
