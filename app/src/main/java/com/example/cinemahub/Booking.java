@@ -9,48 +9,79 @@ public class Booking {
     private List<Integer> bookedSeats;
     private int totalPrice;
     private String movieTitle;
-    private String userEmail;
-    private String userName;
+    private String bookingId; // Add booking ID field
 
     public Booking() {
         // Default constructor required for calls to DataSnapshot.getValue(Booking.class)
     }
 
-    public Booking(String cinema, String date, String time, List<Integer> bookedSeats, int totalPrice, String movieTitle, String userEmail, String userName) {
+    public Booking(String cinema, String date, String time, List<Integer> bookedSeats, int totalPrice, String movieTitle, String bookingId) {
         this.cinema = cinema;
         this.date = date;
         this.time = time;
         this.bookedSeats = bookedSeats;
         this.totalPrice = totalPrice;
         this.movieTitle = movieTitle;
-        this.userEmail = userEmail;
-        this.userName = userName;
+        this.bookingId = bookingId; // Set booking ID
     }
 
     // Getters and setters for all fields
-    public String getCinema() { return cinema; }
-    public void setCinema(String cinema) { this.cinema = cinema; }
 
-    public String getDate() { return date; }
-    public void setDate(String date) { this.date = date; }
+    public String getCinema() {
+        return cinema;
+    }
 
-    public String getTime() { return time; }
-    public void setTime(String time) { this.time = time; }
+    public void setCinema(String cinema) {
+        this.cinema = cinema;
+    }
 
-    public List<Integer> getBookedSeats() { return bookedSeats; }
-    public void setBookedSeats(List<Integer> bookedSeats) { this.bookedSeats = bookedSeats; }
+    public String getDate() {
+        return date;
+    }
 
-    public int getTotalPrice() { return totalPrice; }
-    public void setTotalPrice(int totalPrice) { this.totalPrice = totalPrice; }
+    public void setDate(String date) {
+        this.date = date;
+    }
 
-    public String getMovieTitle() { return movieTitle; }
-    public void setMovieTitle(String movieTitle) { this.movieTitle = movieTitle; }
+    public String getTime() {
+        return time;
+    }
 
-    public String getUserEmail() { return userEmail; } // Getter for user email
-    public void setUserEmail(String userEmail) { this.userEmail = userEmail; } // Setter for user email
+    public void setTime(String time) {
+        this.time = time;
+    }
 
-    public String getUserName() { return userName; } // Getter for user name
-    public void setUserName(String userName) { this.userName = userName; } // Setter for user name
+    public List<Integer> getBookedSeats() {
+        return bookedSeats;
+    }
+
+    public void setBookedSeats(List<Integer> bookedSeats) {
+        this.bookedSeats = bookedSeats;
+    }
+
+    public int getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public String getMovieTitle() {
+        return movieTitle;
+    }
+
+    public void setMovieTitle(String movieTitle) {
+        this.movieTitle = movieTitle;
+    }
+
+    public String getBookingId() {
+        return bookingId;
+    }
+
+    public void setBookingId(String bookingId) {
+        this.bookingId = bookingId;
+    }
 
     @Override
     public String toString() {
@@ -61,8 +92,7 @@ public class Booking {
                 ", bookedSeats=" + bookedSeats +
                 ", totalPrice=" + totalPrice +
                 ", movieTitle='" + movieTitle + '\'' +
-                ", userEmail='" + userEmail + '\'' +
-                ", userName='" + userName + '\'' +
+                ", bookingId='" + bookingId + '\'' +
                 '}';
     }
 }

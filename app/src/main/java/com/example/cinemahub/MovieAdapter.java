@@ -51,7 +51,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BookingFragment bookingFragment = BookingFragment.newInstance(movie.getTitle(), userEmail, userName);
+                BookingFragment bookingFragment = BookingFragment.newInstance(movie.getTitle());
                 if (context instanceof menu_navbar) {
                     ((menu_navbar) context).loadFragment(bookingFragment);
                 }

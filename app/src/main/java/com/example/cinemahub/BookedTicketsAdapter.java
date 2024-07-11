@@ -32,6 +32,7 @@ public class BookedTicketsAdapter extends RecyclerView.Adapter<BookedTicketsAdap
         holder.time.setText(booking.getTime());
         holder.seats.setText("Seats: " + booking.getBookedSeats().toString());
         holder.totalPrice.setText("Total Price: ₱" + booking.getTotalPrice());
+        holder.bookingId.setText("Booking ID: " + booking.getBookingId()); // Set booking id
     }
 
     @Override
@@ -40,7 +41,7 @@ public class BookedTicketsAdapter extends RecyclerView.Adapter<BookedTicketsAdap
     }
 
     public static class BookedTicketsViewHolder extends RecyclerView.ViewHolder {
-        TextView movieTitle, cinema, date, time, seats, totalPrice;
+        TextView movieTitle, cinema, date, time, seats, totalPrice, bookingId;
 
         public BookedTicketsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -50,6 +51,7 @@ public class BookedTicketsAdapter extends RecyclerView.Adapter<BookedTicketsAdap
             time = itemView.findViewById(R.id.time);
             seats = itemView.findViewById(R.id.seats);
             totalPrice = itemView.findViewById(R.id.total_price);
+            bookingId = itemView.findViewById(R.id.booking_id); // Initialize booking id TextView
         }
     }
 }
