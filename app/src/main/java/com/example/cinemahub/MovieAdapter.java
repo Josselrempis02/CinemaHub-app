@@ -19,11 +19,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     private List<Movie> movies;
     private Context context;
     private String userEmail;
+    private String userName;
 
-    public MovieAdapter(Context context, List<Movie> movies, String userEmail) { // Add userEmail to the constructor
+    public MovieAdapter(Context context, List<Movie> movies, String userEmail, String userName) {
         this.context = context;
         this.movies = movies;
         this.userEmail = userEmail;
+        this.userName = userName;
     }
 
     @NonNull
@@ -49,8 +51,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BookingFragment bookingFragment = BookingFragment.newInstance(movie.getTitle(), userEmail); // Pass user email
-                ((menu_navbar) context).loadFragment(bookingFragment);
+                BookingFragment bookingFragment = BookingFragment.newInstance(movie.getTitle(), userEmail, userName);
+                if (context instanceof menu_navbar) {
+                    ((menu_navbar) context).loadFragment(bookingFragment);
+                }
             }
         });
     }

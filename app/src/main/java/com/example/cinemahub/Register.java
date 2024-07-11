@@ -30,7 +30,7 @@ import java.util.Map;
 public class Register extends AppCompatActivity {
 
     private static final String TAG = "Register";
-    private EditText email, password;
+    private EditText username, email, password;
     private Button register;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
@@ -55,6 +55,7 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        username = findViewById(R.id.username);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         register = findViewById(R.id.register);
@@ -63,8 +64,14 @@ public class Register extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String usernameText = username.getText().toString().trim();
                 String emailText = email.getText().toString().trim();
                 String passwordText = password.getText().toString().trim();
+
+                if (TextUtils.isEmpty(usernameText)) {
+                    Toast.makeText(Register.this, "Enter Username", Toast.LENGTH_LONG).show();
+                    return;
+                }
 
                 if (TextUtils.isEmpty(emailText)) {
                     Toast.makeText(Register.this, "Enter Email", Toast.LENGTH_LONG).show();
@@ -92,6 +99,7 @@ public class Register extends AppCompatActivity {
 
                                     // Create a new user with an email
                                     Map<String, Object> userMap = new HashMap<>();
+                                    userMap.put("username", usernameText);
                                     userMap.put("email", emailText);
 
                                     // Write user to Realtime Database

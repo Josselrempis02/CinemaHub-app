@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,13 +47,15 @@ public class BookingFragment extends Fragment {
     private DatabaseReference bookingDB;
 
     private static final String ARG_MOVIE_TITLE = "movie_title";
-    private static final String ARG_USER_EMAIL = "user_email"; // Add user email argument
+    private static final String ARG_USER_EMAIL = "user_email";
+    private static final String ARG_USER_NAME = "user_name";
 
-    public static BookingFragment newInstance(String movieTitle, String userEmail) {
+    public static BookingFragment newInstance(String movieTitle, String userEmail, String userName) {
         BookingFragment fragment = new BookingFragment();
         Bundle args = new Bundle();
         args.putString(ARG_MOVIE_TITLE, movieTitle);
-        args.putString(ARG_USER_EMAIL, userEmail); // Add user email to arguments
+        args.putString(ARG_USER_EMAIL, userEmail);
+        args.putString(ARG_USER_NAME, userName);
         fragment.setArguments(args);
         return fragment;
     }
@@ -98,6 +101,7 @@ public class BookingFragment extends Fragment {
         bookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("BookingFragment", "Book Now button clicked");
                 saveBooking();
             }
         });
@@ -176,6 +180,7 @@ public class BookingFragment extends Fragment {
     }
 
     private void saveBooking() {
+        Log.d("BookingFragment", "saveBooking called");
         String cinema = cinemaSpinner.getSelectedItem().toString();
         String date = dateEditText.getText().toString();
         String time = timeEditText.getText().toString();
@@ -187,14 +192,28 @@ public class BookingFragment extends Fragment {
         }
 
         int totalPrice = bookedSeats.size() * 250; // Example price per seat
-        String movieTitle = getArguments().getString(ARG_MOVIE_TITLE); // Get the movie title from arguments
-        String userEmail = getArguments().getString(ARG_USER_EMAIL); // Get the user email from arguments
+        String movieTitle = getArguments().getString(ARG_MOVIE_TITLE);
+        String userEmail = getArguments().getString(ARG_USER_EMAIL);
+        String userName = getArguments().getString(ARG_USER_NAME);
 
-        Booking booking = new Booking(cinema, date, time, bookedSeats, totalPrice, movieTitle, userEmail); // Include user email
-        bookingDB.push().setValue(booking);
+        Log.d("BookingFragment", "Cinema: " + cinema);
+        Log.d("BookingFragment", "Date: " + date);
+        Log.d("BookingFragment", "Time: " + time);
+        Log.d("BookingFragment", "Booked Seats: " + bookedSeats);
+        Log.d("BookingFragment", "Total Price: " + totalPrice);
+        Log.d("BookingFragment", "Movie Title: " + movieTitle);
+        Log.d("BookingFragment", "User Email: " + userEmail);
+        Log.d("BookingFragment", "User Name: " + userName);
 
-        // Show success message
-        showBookingSuccessDialog();
+        if (userEmail != null && userName != null) {
+            Booking booking = new Booking(cinema, date, time, bookedSeats, totalPrice, movieTitle, userEmail, userName);
+            DatabaseReference bookingRef = FirebaseDatabase.getInstance().getReference().child("BookingDB");
+            bookingRef.push().setValue(booking);
+
+            showBookingSuccessDialog();
+        } else {
+            Log.e("BookingFragment", "User email or name is null");
+        }
     }
 
     private void showBookingSuccessDialog() {

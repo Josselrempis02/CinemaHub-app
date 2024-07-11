@@ -16,15 +16,17 @@ public class Home extends Fragment {
     private RecyclerView recyclerView;
     private MovieAdapter movieAdapter;
     private String userEmail;
+    private String userName; // Add userName if needed
 
     public Home() {
         // Required empty public constructor
     }
 
-    public static Home newInstance(String userEmail) {
+    public static Home newInstance(String userEmail, String userName) {
         Home fragment = new Home();
         Bundle args = new Bundle();
         args.putString("USER_EMAIL", userEmail);
+        args.putString("USER_NAME", userName); // Add userName to arguments
         fragment.setArguments(args);
         return fragment;
     }
@@ -34,6 +36,7 @@ public class Home extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             userEmail = getArguments().getString("USER_EMAIL");
+            userName = getArguments().getString("USER_NAME"); // Get userName from arguments
         }
     }
 
@@ -48,14 +51,14 @@ public class Home extends Fragment {
 
         List<Movie> movies = Arrays.asList(
                 new Movie("End Game", "https://image.tmdb.org/t/p/original/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg", Arrays.asList("Action", "Adventure", "Sci-Fi"), "$15", "The final chapter of the Avengers saga."),
-                new Movie("Movie 2", "https://image.tmdb.org/t/p/original/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg", Arrays.asList("Drama", "Romance", "Thriller"), "$10", "An emotional drama about life and love."),
-                new Movie("Movie 1", "https://image.tmdb.org/t/p/original/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg", Arrays.asList("Comedy", "Family", "Fantasy"), "$8", "A hilarious comedy that will leave you in splits."),
-                new Movie("Movie 2", "https://image.tmdb.org/t/p/original/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg", Arrays.asList("Horror", "Mystery", "Thriller"), "$12", "A terrifying horror story."),
-                new Movie("Movie 1", "https://image.tmdb.org/t/p/original/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg", Arrays.asList("Sci-Fi", "Adventure", "Action"), "$14", "A science fiction adventure.")
+                new Movie("Drama Romance Thriller", "https://image.tmdb.org/t/p/original/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg", Arrays.asList("Drama", "Romance", "Thriller"), "$10", "An emotional drama about life and love."),
+                new Movie("Comedy Family Fantasy", "https://image.tmdb.org/t/p/original/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg", Arrays.asList("Comedy", "Family", "Fantasy"), "$8", "A hilarious comedy that will leave you in splits."),
+                new Movie("Horror Mystery Thriller", "https://image.tmdb.org/t/p/original/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg", Arrays.asList("Horror", "Mystery", "Thriller"), "$12", "A terrifying horror story."),
+                new Movie("Sci-Fi Adventure Action", "https://image.tmdb.org/t/p/original/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg", Arrays.asList("Sci-Fi", "Adventure", "Action"), "$14", "A science fiction adventure.")
                 // Add more movies here
         );
 
-        movieAdapter = new MovieAdapter(getActivity(), movies, userEmail);
+        movieAdapter = new MovieAdapter(getActivity(), movies, userEmail, userName); // Pass userName to MovieAdapter
         recyclerView.setAdapter(movieAdapter);
 
         return view;

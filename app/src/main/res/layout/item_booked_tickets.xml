@@ -5,11 +5,16 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+
+
+
+
     <TextView
         android:id="@+id/movie_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Movie Title"
+        android:fontFamily="@font/poppins_semibold"
         android:textSize="18sp"
         android:textStyle="bold"/>
 
@@ -17,6 +22,7 @@
         android:id="@+id/cinema"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:text="Cinema"
         android:textSize="16sp"/>
 
