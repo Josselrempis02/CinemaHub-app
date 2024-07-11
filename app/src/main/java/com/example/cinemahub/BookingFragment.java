@@ -197,11 +197,19 @@ public class BookingFragment extends Fragment {
 
         DatabaseReference newBookingRef = bookingDB.push();
         String bookingId = newBookingRef.getKey(); // Generate unique booking ID
-        Booking booking = new Booking(cinema, date, time, bookedSeats, totalPrice, movieTitle, bookingId); // Include booking ID
+        int ticketNo = generateTicketNo(); // Generate unique ticket number
+        Booking booking = new Booking(cinema, date, time, bookedSeats, totalPrice, movieTitle, bookingId, ticketNo); // Include ticket number
         newBookingRef.setValue(booking);
 
         showBookingSuccessDialog(bookingId); // Pass booking ID to dialog
     }
+
+    private int generateTicketNo() {
+        // Implement your logic to generate a unique ticket number
+        // For example, using the current timestamp
+        return (int) (System.currentTimeMillis() % Integer.MAX_VALUE);
+    }
+
     private void showBookingSuccessDialog(String bookingId) {
         new AlertDialog.Builder(getActivity())
                 .setTitle("Booking Successful")

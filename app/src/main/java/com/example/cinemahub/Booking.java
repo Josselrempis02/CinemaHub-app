@@ -9,23 +9,23 @@ public class Booking {
     private List<Integer> bookedSeats;
     private int totalPrice;
     private String movieTitle;
-    private String bookingId; // Add booking ID field
+    private String bookingId;
+    private int ticketNo;
 
     public Booking() {
         // Default constructor required for calls to DataSnapshot.getValue(Booking.class)
     }
 
-    public Booking(String cinema, String date, String time, List<Integer> bookedSeats, int totalPrice, String movieTitle, String bookingId) {
+    public Booking(String cinema, String date, String time, List<Integer> bookedSeats, int totalPrice, String movieTitle, String bookingId, int ticketNo) {
         this.cinema = cinema;
         this.date = date;
         this.time = time;
         this.bookedSeats = bookedSeats;
         this.totalPrice = totalPrice;
         this.movieTitle = movieTitle;
-        this.bookingId = bookingId; // Set booking ID
+        this.bookingId = bookingId;
+        this.ticketNo = ticketNo;
     }
-
-    // Getters and setters for all fields
 
     public String getCinema() {
         return cinema;
@@ -83,6 +83,14 @@ public class Booking {
         this.bookingId = bookingId;
     }
 
+    public int getTicketNo() {
+        return ticketNo;
+    }
+
+    public void setTicketNo(int ticketNo) {
+        this.ticketNo = ticketNo;
+    }
+
     @Override
     public String toString() {
         return "Booking{" +
@@ -93,6 +101,7 @@ public class Booking {
                 ", totalPrice=" + totalPrice +
                 ", movieTitle='" + movieTitle + '\'' +
                 ", bookingId='" + bookingId + '\'' +
+                ", ticketNo=" + ticketNo +
                 '}';
     }
 }

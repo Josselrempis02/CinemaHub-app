@@ -26,13 +26,26 @@ public class BookedTicketsAdapter extends RecyclerView.Adapter<BookedTicketsAdap
     @Override
     public void onBindViewHolder(@NonNull BookedTicketsViewHolder holder, int position) {
         Booking booking = bookedTicketsList.get(position);
+
         holder.movieTitle.setText(booking.getMovieTitle());
-        holder.cinema.setText(booking.getCinema());
-        holder.date.setText(booking.getDate());
-        holder.time.setText(booking.getTime());
-        holder.seats.setText("Seats: " + booking.getBookedSeats().toString());
+        holder.bookingId.setText("Booking ID: " + booking.getBookingId());
+        holder.ticketNo.setText("Ticket No.: " + booking.getTicketNo()); // Set ticket number
+        holder.cinema.setText("Cinema: " + booking.getCinema());
+        holder.date.setText("Date: " + booking.getDate());
+        holder.time.setText("Time: " + booking.getTime());
+        holder.seats.setText(formatSeats(booking.getBookedSeats()));
         holder.totalPrice.setText("Total Price: ₱" + booking.getTotalPrice());
-        holder.bookingId.setText("Booking ID: " + booking.getBookingId()); // Set booking id
+    }
+
+    private String formatSeats(List<Integer> bookedSeats) {
+        StringBuilder seatsString = new StringBuilder("Seats: ");
+        for (int i = 0; i < bookedSeats.size(); i++) {
+            if (i > 0) {
+                seatsString.append(", ");
+            }
+            seatsString.append(bookedSeats.get(i));
+        }
+        return seatsString.toString();
     }
 
     @Override
@@ -41,17 +54,18 @@ public class BookedTicketsAdapter extends RecyclerView.Adapter<BookedTicketsAdap
     }
 
     public static class BookedTicketsViewHolder extends RecyclerView.ViewHolder {
-        TextView movieTitle, cinema, date, time, seats, totalPrice, bookingId;
+        TextView movieTitle, bookingId, ticketNo, cinema, date, time, seats, totalPrice;
 
         public BookedTicketsViewHolder(@NonNull View itemView) {
             super(itemView);
             movieTitle = itemView.findViewById(R.id.movie_title);
+            bookingId = itemView.findViewById(R.id.booking_id);
+            ticketNo = itemView.findViewById(R.id.ticket_no);
             cinema = itemView.findViewById(R.id.cinema);
             date = itemView.findViewById(R.id.date);
             time = itemView.findViewById(R.id.time);
             seats = itemView.findViewById(R.id.seats);
             totalPrice = itemView.findViewById(R.id.total_price);
-            bookingId = itemView.findViewById(R.id.booking_id); // Initialize booking id TextView
         }
     }
 }
