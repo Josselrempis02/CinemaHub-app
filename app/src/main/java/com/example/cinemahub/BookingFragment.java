@@ -185,7 +185,7 @@ public class BookingFragment extends Fragment {
             }
         }
 
-        int totalPrice = bookedSeats.size() * 250; // Example price per seat
+        double totalPrice = bookedSeats.size() * 250; // Example price per seat
         String movieTitle = getArguments().getString(ARG_MOVIE_TITLE);
 
         Log.d("BookingFragment", "Cinema: " + cinema);
@@ -197,17 +197,17 @@ public class BookingFragment extends Fragment {
 
         DatabaseReference newBookingRef = bookingDB.push();
         String bookingId = newBookingRef.getKey(); // Generate unique booking ID
-        int ticketNo = generateTicketNo(); // Generate unique ticket number
-        Booking booking = new Booking(cinema, date, time, bookedSeats, totalPrice, movieTitle, bookingId, ticketNo); // Include ticket number
+        String ticketNo = String.valueOf(generateTicketNo()); // Generate unique ticket number
+        Booking booking = new Booking(movieTitle, bookingId, ticketNo, cinema, date, time, bookedSeats, totalPrice); // Include ticket number
         newBookingRef.setValue(booking);
 
         showBookingSuccessDialog(bookingId); // Pass booking ID to dialog
     }
 
-    private int generateTicketNo() {
+    private long generateTicketNo() {
         // Implement your logic to generate a unique ticket number
         // For example, using the current timestamp
-        return (int) (System.currentTimeMillis() % Integer.MAX_VALUE);
+        return System.currentTimeMillis() % Integer.MAX_VALUE;
     }
 
     private void showBookingSuccessDialog(String bookingId) {
