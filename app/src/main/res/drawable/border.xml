@@ -3,6 +3,7 @@
     <solid android:color="#373A40"/> <!-- Black background color -->
     <corners
         android:radius="30dp"
+        android:padding="20dp"
 
         /><!-- Border radius -->
 
