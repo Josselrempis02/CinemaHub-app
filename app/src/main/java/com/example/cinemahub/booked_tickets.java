@@ -1,16 +1,20 @@
 package com.example.cinemahub;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.cinemahub.BookedTicketsAdapter;
+import com.example.cinemahub.Booking;
+import com.example.cinemahub.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,7 +47,7 @@ public class booked_tickets extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
 
-        bookingDB = FirebaseDatabase.getInstance().getReference("BookingDB");
+        bookingDB = FirebaseDatabase.getInstance().getReference().child("BookingDB");
         bookingDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -51,19 +55,18 @@ public class booked_tickets extends Fragment {
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     Booking booking = postSnapshot.getValue(Booking.class);
                     if (booking != null) {
-                        Log.d("FirebaseData", "Booking: " + booking.toString());
                         bookedTicketsList.add(booking);
                     } else {
-                        Log.e("FirebaseData", "Booking is null");
+                        Log.e("booked_tickets", "Booking is null");
                     }
                 }
-                Log.d("FirebaseData", "Total bookings fetched: " + bookedTicketsList.size());
                 adapter.notifyDataSetChanged();
+                Log.d("booked_tickets", "Number of bookings retrieved: " + bookedTicketsList.size());
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("FirebaseData", "Database error: " + error.getMessage());
+                Log.e("booked_tickets", "Database error: " + error.getMessage());
             }
         });
 
