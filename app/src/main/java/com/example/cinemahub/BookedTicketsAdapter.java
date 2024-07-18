@@ -11,7 +11,7 @@ import java.util.List;
 
 public class BookedTicketsAdapter extends RecyclerView.Adapter<BookedTicketsAdapter.BookedTicketsViewHolder> {
 
-    private List<Booking> bookedTicketsList;
+    private final List<Booking> bookedTicketsList;
 
     public BookedTicketsAdapter(List<Booking> bookedTicketsList) {
         this.bookedTicketsList = bookedTicketsList;
