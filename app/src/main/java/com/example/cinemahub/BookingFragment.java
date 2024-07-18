@@ -198,10 +198,20 @@ public class BookingFragment extends Fragment {
         DatabaseReference newBookingRef = bookingDB.push();
         String bookingId = newBookingRef.getKey(); // Generate unique booking ID
         String ticketNo = String.valueOf(generateTicketNo()); // Generate unique ticket number
-        Booking booking = new Booking(movieTitle, bookingId, ticketNo, cinema, date, time, bookedSeats, totalPrice); // Include ticket number
+        Booking booking = new Booking(movieTitle, bookingId, ticketNo, cinema, date, time, bookedSeats, totalPrice);
         newBookingRef.setValue(booking);
 
         showBookingSuccessDialog(bookingId); // Pass booking ID to dialog
+
+        // Navigate to booked_tickets fragment
+        navigateToBookedTickets();
+    }
+
+    private void navigateToBookedTickets() {
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_container, new booked_tickets());
+        ft.addToBackStack(null);
+        ft.commit();
     }
 
     private long generateTicketNo() {
@@ -217,10 +227,7 @@ public class BookingFragment extends Fragment {
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // Navigate to the booked_tickets fragment
-                        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                        ft.replace(R.id.fragment_container, new Home());
-                        ft.addToBackStack(null);
-                        ft.commit();
+                        navigateToBookedTickets();
                     }
                 })
                 .setIcon(android.R.drawable.ic_dialog_info)

@@ -27,27 +27,15 @@ public class BookedTicketsAdapter extends RecyclerView.Adapter<BookedTicketsAdap
     @Override
     public void onBindViewHolder(@NonNull BookedTicketsViewHolder holder, int position) {
         Booking booking = bookedTicketsList.get(position);
-
-        Log.d("AdapterData", "Binding data for position: " + position + ", Booking: " + booking.toString());
-
         holder.movieTitle.setText(booking.getMovieTitle());
         holder.bookingId.setText("Booking ID: " + booking.getBookingId());
-        holder.ticketNo.setText("Ticket No.: " + booking.getTicketNo()); // Set ticket number
+        holder.ticketNo.setText("Ticket No.: " + booking.getTicketNo());
         holder.cinema.setText("Cinema: " + booking.getCinema());
         holder.date.setText("Date: " + booking.getDate());
         holder.time.setText("Time: " + booking.getTime());
         holder.seats.setText(formatSeats(booking.getBookedSeats()));
         holder.totalPrice.setText("Total Price: ₱" + booking.getTotalPrice());
-    }
-    private String formatSeats(List<Integer> bookedSeats) {
-        StringBuilder seatsString = new StringBuilder("Seats: ");
-        for (int i = 0; i < bookedSeats.size(); i++) {
-            if (i > 0) {
-                seatsString.append(", ");
-            }
-            seatsString.append(bookedSeats.get(i));
-        }
-        return seatsString.toString();
+        Log.d("BookedTicketsAdapter", "Binding data for booking: " + booking.toString());
     }
 
     @Override
@@ -55,8 +43,23 @@ public class BookedTicketsAdapter extends RecyclerView.Adapter<BookedTicketsAdap
         return bookedTicketsList.size();
     }
 
-    public static class BookedTicketsViewHolder extends RecyclerView.ViewHolder {
-        TextView movieTitle, bookingId, ticketNo, cinema, date, time, seats, totalPrice;
+    private String formatSeats(List<Integer> seats) {
+        StringBuilder sb = new StringBuilder();
+        for (int seat : seats) {
+            sb.append(seat).append(", ");
+        }
+        return sb.length() > 0 ? sb.substring(0, sb.length() - 2) : "";
+    }
+
+    static class BookedTicketsViewHolder extends RecyclerView.ViewHolder {
+        TextView movieTitle;
+        TextView bookingId;
+        TextView ticketNo;
+        TextView cinema;
+        TextView date;
+        TextView time;
+        TextView seats;
+        TextView totalPrice;
 
         public BookedTicketsViewHolder(@NonNull View itemView) {
             super(itemView);

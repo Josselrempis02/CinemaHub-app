@@ -5,16 +5,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.cinemahub.BookedTicketsAdapter;
-import com.example.cinemahub.Booking;
-import com.example.cinemahub.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,11 +26,8 @@ public class booked_tickets extends Fragment {
     private List<Booking> bookedTicketsList;
     private DatabaseReference bookingDB;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        bookedTicketsList = new ArrayList<>();
-        adapter = new BookedTicketsAdapter(bookedTicketsList);
+    public booked_tickets() {
+        // Required empty public constructor
     }
 
     @Nullable
@@ -45,23 +37,30 @@ public class booked_tickets extends Fragment {
 
         recyclerView = view.findViewById(R.id.recycler_view_booked_tickets);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        bookedTicketsList = new ArrayList<>();
+        adapter = new BookedTicketsAdapter(bookedTicketsList);
         recyclerView.setAdapter(adapter);
 
         bookingDB = FirebaseDatabase.getInstance().getReference().child("BookingDB");
         bookingDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                bookedTicketsList.clear();
-                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-                    Booking booking = postSnapshot.getValue(Booking.class);
-                    if (booking != null) {
-                        bookedTicketsList.add(booking);
-                    } else {
-                        Log.e("booked_tickets", "Booking is null");
+                try {
+                    bookedTicketsList.clear();
+                    for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                        Booking booking = postSnapshot.getValue(Booking.class);
+                        if (booking != null) {
+                            bookedTicketsList.add(booking);
+                            Log.d("booked_tickets", "Booking added: " + booking.toString());
+                        } else {
+                            Log.e("booked_tickets", "Booking is null for postSnapshot: " + postSnapshot.getKey());
+                        }
                     }
+                    adapter.notifyDataSetChanged(); // Ensure adapter is notified of data change
+                    Log.d("booked_tickets", "Number of bookings retrieved: " + bookedTicketsList.size());
+                } catch (Exception e) {
+                    Log.e("booked_tickets", "Error processing bookings", e);
                 }
-                adapter.notifyDataSetChanged();
-                Log.d("booked_tickets", "Number of bookings retrieved: " + bookedTicketsList.size());
             }
 
             @Override
@@ -69,6 +68,7 @@ public class booked_tickets extends Fragment {
                 Log.e("booked_tickets", "Database error: " + error.getMessage());
             }
         });
+
 
         return view;
     }
