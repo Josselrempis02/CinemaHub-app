@@ -1,5 +1,6 @@
 package com.example.cinemahub;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,8 @@ public class BookedTicketsAdapter extends RecyclerView.Adapter<BookedTicketsAdap
     public void onBindViewHolder(@NonNull BookedTicketsViewHolder holder, int position) {
         Booking booking = bookedTicketsList.get(position);
 
+        Log.d("AdapterData", "Binding data for position: " + position + ", Booking: " + booking.toString());
+
         holder.movieTitle.setText(booking.getMovieTitle());
         holder.bookingId.setText("Booking ID: " + booking.getBookingId());
         holder.ticketNo.setText("Ticket No.: " + booking.getTicketNo()); // Set ticket number
@@ -36,7 +39,6 @@ public class BookedTicketsAdapter extends RecyclerView.Adapter<BookedTicketsAdap
         holder.seats.setText(formatSeats(booking.getBookedSeats()));
         holder.totalPrice.setText("Total Price: ₱" + booking.getTotalPrice());
     }
-
     private String formatSeats(List<Integer> bookedSeats) {
         StringBuilder seatsString = new StringBuilder("Seats: ");
         for (int i = 0; i < bookedSeats.size(); i++) {
