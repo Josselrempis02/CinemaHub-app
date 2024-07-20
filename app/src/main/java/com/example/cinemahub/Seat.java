@@ -2,12 +2,11 @@ package com.example.cinemahub;
 
 public class Seat {
     private int seatNumber;
-    private boolean booked;
-    private OnSeatSelectedListener listener;
+    private boolean isBooked;
 
-    public Seat(int seatNumber, boolean booked) {
+    public Seat(int seatNumber, boolean isBooked) {
         this.seatNumber = seatNumber;
-        this.booked = booked;
+        this.isBooked = isBooked;
     }
 
     public int getSeatNumber() {
@@ -15,18 +14,11 @@ public class Seat {
     }
 
     public boolean isBooked() {
-        return booked;
+        return isBooked;
     }
 
     public void setBooked(boolean booked) {
-        this.booked = booked;
-        if (listener != null) {
-            listener.onSeatSelected(this);
-        }
-    }
-
-    public void setOnSeatSelectedListener(OnSeatSelectedListener listener) {
-        this.listener = listener;
+        isBooked = booked;
     }
 
     public interface OnSeatSelectedListener {

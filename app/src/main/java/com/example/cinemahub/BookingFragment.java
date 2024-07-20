@@ -63,30 +63,9 @@ public class BookingFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_booking, container, false);
 
-        recyclerView = view.findViewById(R.id.recyclerViewSeats);
-        cinemaSpinner = view.findViewById(R.id.cinema_spinner);
-        dateEditText = view.findViewById(R.id.date_edit_text);
-        timeEditText = view.findViewById(R.id.time_edit_text);
-        priceTextView = view.findViewById(R.id.price_text_view);
-        movieTitleTextView = view.findViewById(R.id.movie_title_text_view);
-        bookButton = view.findViewById(R.id.book_button);
-
-        if (getArguments() != null) {
-            String movieTitle = getArguments().getString(ARG_MOVIE_TITLE);
-            movieTitleTextView.setText(movieTitle);
-        }
-
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), NUM_COLUMNS));
-        seats = generateSeats();
-        seatAdapter = new SeatAdapter(seats);
-        seatAdapter.setOnSeatSelectedListener(new Seat.OnSeatSelectedListener() {
-            @Override
-            public void onSeatSelected(Seat seat) {
-                updatePrice();
-            }
-        });
-        recyclerView.setAdapter(seatAdapter);
-
+        initViews(view);
+        setMovieTitle();
+        setupRecyclerView();
         setupCinemaSpinner();
         setupDateEditText();
         setupTimeEditText();
@@ -103,6 +82,36 @@ public class BookingFragment extends Fragment {
         bookingDB = FirebaseDatabase.getInstance().getReference("BookingDB");
 
         return view;
+    }
+
+    private void initViews(View view) {
+        recyclerView = view.findViewById(R.id.recyclerViewSeats);
+        cinemaSpinner = view.findViewById(R.id.cinema_spinner);
+        dateEditText = view.findViewById(R.id.date_edit_text);
+        timeEditText = view.findViewById(R.id.time_edit_text);
+        priceTextView = view.findViewById(R.id.price_text_view);
+        movieTitleTextView = view.findViewById(R.id.movie_title_text_view);
+        bookButton = view.findViewById(R.id.book_button);
+    }
+
+    private void setMovieTitle() {
+        if (getArguments() != null) {
+            String movieTitle = getArguments().getString(ARG_MOVIE_TITLE);
+            movieTitleTextView.setText(movieTitle);
+        }
+    }
+
+    private void setupRecyclerView() {
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), NUM_COLUMNS));
+        seats = generateSeats();
+        seatAdapter = new SeatAdapter(seats);
+        seatAdapter.setOnSeatSelectedListener(new Seat.OnSeatSelectedListener() {
+            @Override
+            public void onSeatSelected(Seat seat) {
+                updatePrice();
+            }
+        });
+        recyclerView.setAdapter(seatAdapter);
     }
 
     private List<Seat> generateSeats() {
@@ -124,41 +133,49 @@ public class BookingFragment extends Fragment {
         dateEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar calendar = Calendar.getInstance();
-                int year = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH);
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                dateEditText.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
-                            }
-                        }, year, month, day);
-                datePickerDialog.show();
+                showDatePickerDialog();
             }
         });
+    }
+
+    private void showDatePickerDialog() {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        dateEditText.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+                    }
+                }, year, month, day);
+        datePickerDialog.show();
     }
 
     private void setupTimeEditText() {
         timeEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar calendar = Calendar.getInstance();
-                int hour = calendar.get(Calendar.HOUR_OF_DAY);
-                int minute = calendar.get(Calendar.MINUTE);
-
-                TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(),
-                        new TimePickerDialog.OnTimeSetListener() {
-                            @Override
-                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                                timeEditText.setText(String.format("%02d:%02d", hourOfDay, minute));
-                            }
-                        }, hour, minute, true);
-                timePickerDialog.show();
+                showTimePickerDialog();
             }
         });
+    }
+
+    private void showTimePickerDialog() {
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(),
+                new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        timeEditText.setText(String.format("%02d:%02d", hourOfDay, minute));
+                    }
+                }, hour, minute, true);
+        timePickerDialog.show();
     }
 
     private void updatePrice() {
